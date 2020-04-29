@@ -40,7 +40,7 @@ public class charactersTester {
     @SuppressWarnings("InfiniteLoopStatement")
     private void run() {
         testPlayer.setSpeed(100);
-        testSpiky.setSpeed(50);
+        testSpiky.setSpeed(80);
         Point center = testPlayer.getGraphics().getPosition();
         double t = 0;
         while (true) {

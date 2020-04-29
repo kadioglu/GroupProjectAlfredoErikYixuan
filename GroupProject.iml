@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/GroupProjectMain" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/guava-11.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/jsr305-1.3.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/slf4j-api-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/reflections-0.9.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/slf4j-simple-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/javassist-3.26.0-GA.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/guava-11.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/jsr305-1.3.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/slf4j-api-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/reflections-0.9.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/slf4j-simple-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-01/lib/javassist-3.26.0-GA.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="127-shared" />
+  </component>
+</module>

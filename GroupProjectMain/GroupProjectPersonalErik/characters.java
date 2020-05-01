@@ -20,9 +20,6 @@ public abstract class characters {
         buildGraphics();
     }
 
-    /**
-     * @return the underlying graphics component.
-     */
     public GraphicsGroup getGraphics() {
         return graphics;
     }
@@ -62,9 +59,6 @@ public abstract class characters {
 
     }
 
-    /**
-     * Concrete classes must override this and use it to draw the shape.
-     */
     protected abstract void buildGraphics();
 
     public double getSize() {

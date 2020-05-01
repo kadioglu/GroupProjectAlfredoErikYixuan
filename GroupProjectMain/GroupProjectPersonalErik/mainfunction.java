@@ -22,8 +22,6 @@ public class mainfunction {
     private List<bullet> bulletList;
     private List<bullet> deletalist;
     private Random rand = new Random();
-    private ball bullet;
-    private block removedBlock;
     private player player;
     private int roomnumber;
     private int nummounster1;
@@ -31,6 +29,9 @@ public class mainfunction {
     private counter counter1;
 
     private int firecountdown=0;
+
+    private String otheraction;
+    private Boolean otheractionstatus;
 
     private String actiononX;
     private String actiononY;
@@ -73,7 +74,6 @@ public class mainfunction {
         bulletList = new ArrayList<>();
 //        ball1 = new ball(150, 250, 10, Color.black, 5.0, 5.0);
 //        canvas.add(ball1.getshape());
-        removedBlock=null;
         player= new player(0,400,20,20);
         actiononX="null";
         actiononY="null";
@@ -89,9 +89,11 @@ public class mainfunction {
         canvas.add(player.getShape());
         canvas.draw();
         canvas.onMouseDown(event -> {
-            if(counter1.checkcountnumber()){
+            if(player.getBulletcount()>0){
             createbullet(event.getPosition().getX(), event.getPosition().getY());}
-            counter1.refreshtime();
+            player.fire();
+            System.out.println(player.getBulletcount());
+            //            counter1.refreshtime();
         });
         canvas.onKeyDown(event -> {
             ControlManager(event.getKey());
@@ -145,6 +147,9 @@ public class mainfunction {
 //            player.writeVX(7);
 //            System.out.print("d");
         }
+        if(key==Key.R){
+            otheraction="r";
+            }
     }
 
     private void ControlManager2(Key key){
@@ -177,6 +182,13 @@ public class mainfunction {
 //            player.writeVX(0);
 //            System.out.print("Do");
         }
+        if(key==Key.R){
+            if(otheraction.equals("r")){
+                player.reload();
+                otheraction="null";
+            }
+        }
+
     }
 
     private void centralControler(){

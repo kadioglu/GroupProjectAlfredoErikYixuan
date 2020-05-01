@@ -43,19 +43,19 @@ public class bullet {
     }
     /**this function bounce the ball back when it hit the wall, and it reduce the life of the player when hit the bottom*/
     public void collidecheck() {
-        if (this.getX() == 0) {
+        if (this.getX() == -100) {
             this.status=false;
 
         }
-        if (this.getX() == 800) {
+        if (this.getX() == 900) {
             this.status=false;
 
         }
-        if (this.getY() == 0) {
+        if (this.getY() == -100) {
             this.status=false;
 
         }
-        if (this.getY() == 800) {
+        if (this.getY() == 900) {
             this.status=false;
 
         }

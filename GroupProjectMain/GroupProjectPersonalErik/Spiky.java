@@ -16,6 +16,7 @@ public class Spiky extends characters{
 
     @Override
     protected void buildGraphics() {
+        setSpeed(6);
         GraphicsGroup SpikyShape= new GraphicsGroup();
         List<Point> starPoints = getStarPoints();
         Path poly = new Path(starPoints);

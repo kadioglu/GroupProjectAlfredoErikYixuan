@@ -4,6 +4,7 @@ import comp127graphics.CanvasWindow;
 import comp127graphics.events.Key;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +40,8 @@ public class mainfunction {
 //    private Boolean Adis;
 //    private Boolean Sdis;
 //    private Boolean Ddis;
+
+    private characters spiky;
 
     /**main function*/
     public static void main(String[] args) {
@@ -79,6 +82,7 @@ public class mainfunction {
         actiononY="null";
         firecountdown=0;
         counter1=new counter(50);
+        spiky = new Spiky();
 //        Wdis=false;
 //        Adis= false;
 //        Sdis=false;
@@ -86,6 +90,7 @@ public class mainfunction {
 
 //        CheckBlock();
 //        clearblock();
+        canvas.add(spiky.getGraphics());
         canvas.add(player.getShape());
         canvas.draw();
         canvas.onMouseDown(event -> {
@@ -106,10 +111,16 @@ public class mainfunction {
             centralControler();
             player.move();
             player.checkbounder();
+            spiky.setGoal(new Point2D.Double(
+                 player.getcenterX(),
+                 player.getcenterY()
+            ));
+            spiky.moveTowardsGoal();
             if(bulletList!=null){
             for(bullet i: bulletList){
                 i.move();
                 i.collidecheck();
+
 
             if(!i.getstatus()){
                 deletalist.add(i);

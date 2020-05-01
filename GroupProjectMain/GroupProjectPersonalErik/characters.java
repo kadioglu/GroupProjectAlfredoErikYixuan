@@ -79,21 +79,22 @@ public abstract class characters {
 
     public void setGoal(Point.Double goal) {
         this.goal = goal;
+        System.out.println(goal.getX());
     }
 
 
-    public void moveTowardsGoal(double dt) {
+    public void moveTowardsGoal() {
         double dx = goal.getX() - getGraphics().getX(),
                 dy = goal.getY() - getGraphics().getY(),
                 dist = Math.hypot(dx, dy);
+
         moveBy(
                 dx * getSpeed() / dist,
-                dy * getSpeed() / dist,
-                dt);
+                dy * getSpeed() / dist);
     }
 
-    public void moveBy(double dx, double dy, double dt) {
-        graphics.moveBy(dx*dt, dy*dt);
+    public void moveBy(double dx, double dy) {
+        graphics.moveBy(dx, dy);
 
     }
 

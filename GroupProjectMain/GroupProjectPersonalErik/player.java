@@ -14,6 +14,8 @@ public class player {
     private boolean status;
     private Rectangle shape;
     private double size;
+    private int bulletlimit;
+    private int bulletcount;
 
     /**
 this is the constructor of the paddle which is the move block
@@ -23,6 +25,9 @@ this is the constructor of the paddle which is the move block
         shape.setFillColor(Color.black);
         shape.setStrokeColor(Color.black);
         size=width;
+        bulletlimit=10;
+        bulletcount=10;
+
     }
 
     public void checkbounder(){
@@ -46,6 +51,21 @@ this is the constructor of the paddle which is the move block
             this.status=false;
 
         }
+    }
+    public void fire(){
+        bulletcount=bulletcount-1;
+    }
+
+    public void reload(){
+        bulletcount=bulletlimit;
+    }
+
+    public int getBulletcount(){
+        return this.bulletcount;
+    }
+
+    public void bulletlimitincrease(int n){
+        this.bulletlimit=bulletlimit+n;
     }
 
     public Rectangle getShape(){

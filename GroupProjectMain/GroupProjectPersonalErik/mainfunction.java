@@ -90,7 +90,7 @@ public class mainfunction {
             if(bulletList!=null){
             for(bullet i: bulletList){
                 i.move();
-                i.collidecheck(canvas);
+                i.collidecheck();
 
 
             if(!i.getstatus()){

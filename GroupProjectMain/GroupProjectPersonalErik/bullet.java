@@ -22,7 +22,7 @@ public class bullet {
 
 
     /**ball constructor*/
-    public bullet(double x, double y, double radius, Color color, int demage, double speed, double endX, double endY) {
+    public bullet(double x, double y, double radius, Color color, int damage, double speed, double endX, double endY) {
         shape = new Ellipse(x, y, radius * 2, radius * 2);
         shape.setFillColor(color);
         this.endX=endX;
@@ -45,22 +45,22 @@ public class bullet {
     public void collidecheck() {
         if (this.getX() == -100) {
             this.status=false;
-
         }
+
         if (this.getX() == 900) {
             this.status=false;
-
         }
+
         if (this.getY() == -100) {
             this.status=false;
-
         }
+
         if (this.getY() == 900) {
             this.status=false;
-
         }
 
     }
+
     public boolean getstatus(){
         return status;
     }

@@ -41,15 +41,22 @@ public class mainfunction {
 
     private characters spiky;
 
-    /**main function*/
+    /**
+     * Main function
+     * */
     public static void main(String[] args) {
         new mainfunction();
     }
 
+    /**
+     * The canvas & screen for the game, animating a list of enemies chasing after the player
+     * and the bullets the player fires, generates rooms with a semi-random number of enemies
+     * at random positions, and uses the player's inputs to allow the player to move.
+     */
     public mainfunction(){
         roomnumber=1;
         nummounster1 = rand.nextInt(2)+roomnumber/2;
-        canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvas = new CanvasWindow("Goose Project!", CANVAS_WIDTH, CANVAS_HEIGHT);
         bulletList = new ArrayList<>();
         enemyList = new ArrayList<>();
         player= new player(0,400,20,20);
@@ -78,58 +85,74 @@ public class mainfunction {
             centralControler();
             player.move();
             player.checkbounder();
-            for(characters s:enemyList){
-            s.setGoal(new Point2D.Double(
-                 player.getcenterX(),
-                 player.getcenterY()
-            ));
-            s.moveTowardsGoal();
-            if (s.intersects(player.getShape())){
-                player.takeDamage(1);
-                if(player.getHealth()<1){
-                    System.exit(0);
-                }
-            }
-            }
-            if(enemyList.isEmpty()){
-                newRoom();
-            }
-            if(bulletList!=null){
-            for(bullet i: bulletList){
-                i.move();
-                i.collidecheck();
-                for (characters s:enemyList){
-                    if(s.intersects(i.getshape())){
-                        s.takeDamage(1);
-                        bulletList = bulletList.stream()
-                                .filter(a->!a.equals(i))
-                                .collect(Collectors.toList());
-                        canvas.remove(i.getshape());
+//            for(characters s:enemyList){
+//            s.setGoal(new Point2D.Double(
+//                 player.getcenterX(),
+//                 player.getcenterY()
+//            ));
+//            s.moveTowardsGoal();
+//            if (s.intersects(player.getShape())){
+//                player.takeDamage(1);
+//                if(player.getHealth()<1){
+//                    System.exit(0);
+//                }
+//            }
+//            }
+//            if(enemyList.isEmpty()){
+//                newRoom();
+//            }
 
-                        if(s.getHealth()<1){
-                            canvas.remove(s.getGraphics());
-                            enemyList = enemyList.stream()
-                                    .filter(b -> !b.equals(s))
-                                    .collect(Collectors.toList());
-                        }
-                    }
-                }
+            enemyMoves();
+            checkNewRoom();
 
-            if(!i.getstatus()){
-                deletalist.add(i);
+            if(bulletList!=null) {
+                checkBullet();
             }
-                }
-            if(deletalist!=null){
-            for (bullet b: deletalist) {
-                bulletList.remove(b);
-                deletalist = null;
-            }
-            }
-            }
+
+//
+//            if(bulletList!=null){
+//            for(bullet i: bulletList){
+//                i.move();
+//                i.collidecheck();
+//                for (characters s:enemyList){
+//                    if(s.intersects(i.getshape())){
+//                        s.takeDamage(1);
+//                        bulletList = bulletList.stream()
+//                                .filter(a->!a.equals(i))
+//                                .collect(Collectors.toList());
+//                        canvas.remove(i.getshape());
+//
+//                        if(s.getHealth()<1){
+//                            canvas.remove(s.getGraphics());
+//                            enemyList = enemyList.stream()
+//                                    .filter(b -> !b.equals(s))
+//                                    .collect(Collectors.toList());
+//                        }
+//                    }
+//                }
+//
+//            if(!i.getstatus()){
+//                deletalist.add(i);
+//            }
+//                }
+//            if(deletalist!=null){
+//            for (bullet b: deletalist) {
+//                bulletList.remove(b);
+//                deletalist = null;
+//            }
+//            }
+//            }
         }
         );
         };
 //    }
+
+    /**
+     * Accepts the button the player is pushing and uses that to increase
+     * or decrease the x/v velocities based on the axis and direction
+     *
+     * @param key Takes the key the player is pressing
+     */
     private void ControlManager(Key key){
         if(key== Key.W){
             CactiononY("w");
@@ -156,6 +179,12 @@ public class mainfunction {
             }
     }
 
+
+    // I think that's what this does; I am unsure
+    /**
+     *
+     * @param key Takes another key the player may be pressing
+     */
     private void ControlManager2(Key key){
         if(key== Key.W){
             if(actiononY.equals("w")){
@@ -180,7 +209,7 @@ public class mainfunction {
 //            System.out.print("So");
         }
         if(key== Key.D){
-            if(actiononX .equals("d")){
+            if(actiononX.equals("d")){
                 actiononX="null";
             }
 //            player.writeVX(0);
@@ -192,7 +221,6 @@ public class mainfunction {
                 otheraction="null";
             }
         }
-
     }
 
     private void centralControler(){
@@ -269,5 +297,61 @@ public class mainfunction {
         }
     }
 
-}
+    private void enemyMoves() {
+        for(characters s:enemyList){
+            s.setGoal(new Point2D.Double(
+                 player.getcenterX(),
+                 player.getcenterY()
+            ));
+            s.moveTowardsGoal();
+            if (s.intersects(player.getShape())){
+                player.takeDamage(1);
+                if(player.getHealth()<1){
+                    System.exit(0);
+                }
+            }
+        }
+    }
 
+    private void checkNewRoom() {
+        if(enemyList.isEmpty()){
+            newRoom();
+        }
+    }
+
+    private void checkBullet() {
+            for(bullet i: bulletList) {
+                i.move();
+                i.collidecheck();
+                for (characters s:enemyList) {
+                    if(s.intersects(i.getshape())) {
+                        s.takeDamage(1);
+                        bulletList = bulletList.stream()
+                                .filter(a->!a.equals(i))
+                                .collect(Collectors.toList());
+                        canvas.remove(i.getshape());
+
+                        if(s.getHealth()<1) {
+                            canvas.remove(s.getGraphics());
+                            enemyList = enemyList.stream()
+                                    .filter(b -> !b.equals(s))
+                                    .collect(Collectors.toList());
+                        }
+                    }
+                }
+
+                if(!i.getstatus()) {
+                    deletalist.add(i);
+                }
+            }
+            if(deletalist!=null){
+                for (bullet b: deletalist) {
+                    bulletList.remove(b);
+                    deletalist = null;
+                }
+            }
+    }
+
+
+
+}

@@ -1,6 +1,8 @@
 package GroupProjectPersonalErik;
 
+import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
+import comp127graphics.GraphicsObject;
 
 import java.awt.*;
 import java.util.Timer;
@@ -14,6 +16,8 @@ public abstract class characters {
     private int health;
     private int damage;
     private boolean tookDamage;
+    private int xOffset;
+    private int yOffset;
 
     public characters() {
         graphics = new GraphicsGroup(0, 0);
@@ -49,7 +53,7 @@ public abstract class characters {
 
     public void takeDamage(characters charact){
         if(this.tookDamage = false) {
-            this.setHealth(this.getHealth() - damage);
+            this.setHealth(this.getHealth() - this.damage);
             this.tookDamage();
             if (this.health <= 0) {
                 charact = null;
@@ -103,5 +107,22 @@ public abstract class characters {
     }
 
 
+    private static boolean intersects(GraphicsObject GO1, GraphicsObject Go2) {
+        return GO1.getBounds().intersects(Go2.getBounds());
+    }
+
+    public int getxOffset(){
+        return this.xOffset;
+    }
+    public void setxOffset(int i){
+        this.xOffset = i;
+    }
+
+    public int getyOffset() {
+        return this.yOffset;
+    }
+    public void setyOffset(int i){
+        this.yOffset = i;
+    }
 }
 

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * The game of Breakout.
+ * This is the Game Main function
  *
  */
 public class mainfunction {
@@ -18,12 +18,13 @@ public class mainfunction {
     private static final int CANVAS_WIDTH = 800;
     private static final int CANVAS_HEIGHT = 800;
 
-    private CanvasWindow canvas;
+    private final CanvasWindow canvas;
 //    private List<block> blockList;
+    private List<characters> enemyList;
     private List<bullet> bulletList;
     private List<bullet> deletalist;
-    private Random rand = new Random();
-    private player player;
+    private final Random rand = new Random();
+    private final player player;
     private int roomnumber;
     private int nummounster1;
     private int Nummounster2;
@@ -32,14 +33,10 @@ public class mainfunction {
     private int firecountdown=0;
 
     private String otheraction;
-    private Boolean otheractionstatus;
 
     private String actiononX;
     private String actiononY;
-//    private Boolean Wdis;
-//    private Boolean Adis;
-//    private Boolean Sdis;
-//    private Boolean Ddis;
+
 
     private characters spiky;
 
@@ -47,50 +44,23 @@ public class mainfunction {
     public static void main(String[] args) {
         new mainfunction();
     }
-    /**breakoutgame constructor*/
 
-//    public void initialize(){
-//        canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
-////        blockList = new ArrayList<>();
-//        bulletList = new ArrayList<>();
-////        ball1 = new ball(150, 250, 10, Color.black, 5.0, 5.0);
-////        canvas.add(ball1.getshape());
-//        removedBlock=null;
-//        player= new player(0,400,20,20);
-//        actiononX="null";
-//        actiononY="null";
-//        firecountdown=10;
-//        counter1=new counter(15);
-////        Wdis=false;
-////        Adis= false;
-////        Sdis=false;
-////        Ddis=false;
-//
-////        CheckBlock();
-////        clearblock();
-//        canvas.add(player.getShape());
-//        canvas.draw();
-//    }
     public mainfunction(){
+        nummounster1 = rand.nextInt(2)+1;
         canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
-//        blockList = new ArrayList<>();
         bulletList = new ArrayList<>();
-//        ball1 = new ball(150, 250, 10, Color.black, 5.0, 5.0);
-//        canvas.add(ball1.getshape());
+        enemyList = new ArrayList<>();
         player= new player(0,400,20,20);
         actiononX="null";
         actiononY="null";
         firecountdown=0;
         counter1=new counter(50);
-        spiky = new Spiky();
-//        Wdis=false;
-//        Adis= false;
-//        Sdis=false;
-//        Ddis=false;
-
-//        CheckBlock();
-//        clearblock();
-        canvas.add(spiky.getGraphics());
+        for(int i = 0; i<=nummounster1;i++){
+            spiky = new Spiky();
+            canvas.add(spiky.getGraphics());
+            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());
+            enemyList.add(spiky);
+        }
         canvas.add(player.getShape());
         canvas.draw();
         canvas.onMouseDown(event -> {
@@ -111,15 +81,16 @@ public class mainfunction {
             centralControler();
             player.move();
             player.checkbounder();
-            spiky.setGoal(new Point2D.Double(
+            for(characters s:enemyList){
+            s.setGoal(new Point2D.Double(
                  player.getcenterX(),
                  player.getcenterY()
             ));
-            spiky.moveTowardsGoal();
+            s.moveTowardsGoal();}
             if(bulletList!=null){
             for(bullet i: bulletList){
                 i.move();
-                i.collidecheck();
+                i.collidecheck(canvas);
 
 
             if(!i.getstatus()){
@@ -238,14 +209,6 @@ public class mainfunction {
             else player.writeVX(0);
         }
     }
-//    private void bounderycontrol(){
-//        if(player.getY() >= 0){
-//            Wdis=true;
-//        }
-//        if(player.getY() >= 0){
-//
-//        }
-//    }
 
     private void CactiononX(String i){
         this.actiononX=i;
@@ -264,79 +227,6 @@ public class mainfunction {
         this.firecountdown=i;
     }
 
-//    private void updateCanvas() {
-//        if (!bu.getBulletList().isEmpty()) {
-////            while (animating) {
-//            for (newBull bullet : bulletHandler.getBulletList()) {
-////                    bullet.removeFromCanvas();
-//                bullet.move();
-//                bullet.addToCanvas();
-//                canvas.pause(30);
-//            }
-////            }
-//        }
-//    }
-
-//    /**this function create block*/
-//    private void populateblock() {
-//        for (int i = 0; i < 100; i++) {
-//            int y = 20 + 23 * (i / 10);
-//            int x = 12 + 58 * (i % 10);
-//            block newblock = new block(x, y, 55, 20);
-//            newblock.setcolor(Color.getHSBColor(rand.nextFloat(), rand.nextFloat() * 0.5f + 0.1f, 1));
-//            blockList.add(newblock);
-//            canvas.add(newblock.getshape());
-//        }
-//    }
-    /**this function run though all the block in the blocklist and check whether it is hit by the ball*/
-//    private void CheckBlock() {
-//        for (block i : blockList) {
-//            brickChecker(ball1.getX(),ball1.getY(),i );
-//        }
-//        clearblock();
-//    }
-    /**this function clear the block that was marked as block that should be moved*/
-//    private void clearblock(){
-//        for (block i : blockList){
-//            if (!i.getstatus()){
-//                removedBlock=i;
-//            }
-//        }
-//        if(removedBlock!=null){
-//            blockList.remove(removedBlock);
-//            canvas.remove(removedBlock.getshape());
-//            removedBlock=null;}
-//    }
-    /**this function checks the collision between block, moveblock and ball it change the velosity of the block
-     * and mark the block that was hit as removedblovk*/
-//    private void brickChecker(double ballx, double bally,block theblock){
-//        GraphicsObject b3 = new Ellipse((ballx+10), bally,0.1,1.5);
-//        if (b3.getBounds().intersects(theblock.getshape().getBounds())) {
-//            theblock.setStatus();
-//            ball1.writeVX(-5);
-//        }
-//
-//        GraphicsObject b6 = new Ellipse(ballx, (bally+10),3,0.1);
-//        if (b6.getBounds().intersects(theblock.getshape().getBounds())) {
-//            theblock.setStatus();
-//            ball1.writeY(-5);
-//        }
-//        else if (b6.getBounds().intersects(moveBlock1.getBounds())) {
-//            ball1.writeY(-5);
-//        }
-//
-//        GraphicsObject b9 = new Ellipse((ballx-10), bally,0.1,1.5);
-//        if (b9.getBounds().intersects(theblock.getshape().getBounds())) {
-//            theblock.setStatus();
-//            ball1.writeVX(5);
-//        }
-//
-//        GraphicsObject b12 = new Ellipse(ballx, (bally-10),3,0.1);
-//        if (b12.getBounds().intersects(theblock.getshape().getBounds())) {
-//            theblock.setStatus();
-//            ball1.writeY(5);
-//        }
-//    }
     private void changelocation(){
         canvas.removeAll();
 
@@ -348,7 +238,6 @@ public class mainfunction {
             nummounster1=roomnumber+(4-rand.nextInt(5));
         }
     }
-
 
 }
 

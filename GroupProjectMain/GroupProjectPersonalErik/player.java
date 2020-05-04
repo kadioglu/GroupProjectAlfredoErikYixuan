@@ -4,13 +4,9 @@ import comp127graphics.Rectangle;
 
 import java.awt.*;
 
-public class player {
+public class player{
     private double XVelosity;
     private double YVelosity;
-    private double endX;
-    private double endY;
-    private int demage;
-    private boolean looselife;
     private boolean status;
     private Rectangle shape;
     private double size;
@@ -27,6 +23,7 @@ this is the constructor of the paddle which is the move block
         size=width;
         bulletlimit=10;
         bulletcount=10;
+
 
     }
 
@@ -71,6 +68,7 @@ this is the constructor of the paddle which is the move block
     public Rectangle getShape(){
         return this.shape;
     }
+
 
     public double getSize(){
         return this.size;

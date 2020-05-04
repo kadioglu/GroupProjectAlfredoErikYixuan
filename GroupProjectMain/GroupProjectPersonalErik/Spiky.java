@@ -6,28 +6,34 @@ import comp127graphics.Rectangle;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 public class Spiky extends characters{
 
     private static final Color
             strokeColor = new Color(244, 0, 0),
             fillColor = new Color(244, 0, 0);
+    private Random rand;
+    private int xOffset;
+    private int yOffset;
 
 
     @Override
     protected void buildGraphics() {
-        setSpeed(6);
+        rand = new Random();
+        setxOffset(rand.nextInt(700));
+        setyOffset(rand.nextInt(700));
+        setSpeed(5);
         GraphicsGroup SpikyShape= new GraphicsGroup();
         List<Point> starPoints = getStarPoints();
         Path poly = new Path(starPoints);
         poly.setFillColor(Color.RED);
         SpikyShape.add(poly);
-        comp127graphics.Ellipse body = new Ellipse(-20, -20, 40, 40);
+        comp127graphics.Ellipse body = new Ellipse(-20,-20, 40, 40);
         body.setStrokeColor(strokeColor);
         body.setFilled(true);
         body.setFillColor(fillColor);
         SpikyShape.add(body);
-
         getGraphics().add(SpikyShape);
     }
     public java.util.List<Point> getStarPoints() {
@@ -43,4 +49,5 @@ public class Spiky extends characters{
                 new Point(95.11/3,  -30.9/3),
                 new Point(38.04/3,   12.36/3));
     }
+
 }

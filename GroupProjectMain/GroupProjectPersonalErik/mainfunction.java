@@ -101,10 +101,10 @@ public class mainfunction {
                 for (characters s:enemyList){
                     if(s.intersects(i.getshape())){
                         s.takeDamage(1);
-
                         bulletList = bulletList.stream()
                                 .filter(a->!a.equals(i))
                                 .collect(Collectors.toList());
+                        canvas.remove(i.getshape());
 
                         if(s.getHealth()<1){
                             canvas.remove(s.getGraphics());

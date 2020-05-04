@@ -38,7 +38,7 @@ public abstract class characters {
             }
         }
         this.tookDamage = true;
-         long delay = 3;
+         long delay = 300;
          timer.schedule(new NextTask(),delay);
 
 

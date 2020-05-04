@@ -16,7 +16,7 @@ public class bullet {
     private double YVelosity;
     private double endX;
     private double endY;
-    private int demage;
+    private int damage;
     private boolean looselife;
     private boolean status;
 
@@ -27,7 +27,7 @@ public class bullet {
         shape.setFillColor(color);
         this.endX=endX;
         this.endY=endY;
-        this.demage=demage;
+        this.damage=1;
         this.looselife=false;
         double angleRadians = atan2(endY-y, endX-x);
         this.XVelosity = cos(angleRadians) * speed;
@@ -90,6 +90,10 @@ public class bullet {
     /**this function rewrite velosity y*/
     public void writeY(double i){
         this.YVelosity=i;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
 

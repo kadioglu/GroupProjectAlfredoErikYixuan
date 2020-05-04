@@ -2,7 +2,6 @@ package GroupProjectPersonalErik;
 
 import comp127graphics.*;
 import comp127graphics.Point;
-import comp127graphics.Rectangle;
 
 import java.awt.*;
 import java.util.List;
@@ -13,17 +12,14 @@ public class Spiky extends characters{
     private static final Color
             strokeColor = new Color(244, 0, 0),
             fillColor = new Color(244, 0, 0);
-    private Random rand;
-    private int xOffset;
-    private int yOffset;
 
 
     @Override
     protected void buildGraphics() {
-        rand = new Random();
+        Random rand = new Random();
         setxOffset(rand.nextInt(700));
         setyOffset(rand.nextInt(700));
-        setSpeed(5);
+        setSpeed(4);
         GraphicsGroup SpikyShape= new GraphicsGroup();
         List<Point> starPoints = getStarPoints();
         Path poly = new Path(starPoints);
@@ -34,7 +30,9 @@ public class Spiky extends characters{
         body.setFilled(true);
         body.setFillColor(fillColor);
         SpikyShape.add(body);
+        setHealth(2);
         getGraphics().add(SpikyShape);
+
     }
     public java.util.List<Point> getStarPoints() {
         return List.of(

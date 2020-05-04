@@ -4,7 +4,7 @@ import comp127graphics.Rectangle;
 
 import java.awt.*;
 
-public class player{
+public class player extends characters{
     private double XVelosity;
     private double YVelosity;
     private boolean status;
@@ -23,6 +23,7 @@ this is the constructor of the paddle which is the move block
         size=width;
         bulletlimit=10;
         bulletcount=10;
+        setHealth(3);
 
 
     }
@@ -69,6 +70,11 @@ this is the constructor of the paddle which is the move block
         return this.shape;
     }
 
+
+    @Override
+    protected void buildGraphics() {
+
+    }
 
     public double getSize(){
         return this.size;

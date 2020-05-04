@@ -1,6 +1,5 @@
 package GroupProjectPersonalErik;
 
-import comp127graphics.CanvasWindow;
 import comp127graphics.GraphicsGroup;
 import comp127graphics.GraphicsObject;
 
@@ -10,7 +9,7 @@ import java.util.TimerTask;
 
 public abstract class characters {
 
-    private final GraphicsGroup graphics;
+    private GraphicsGroup graphics;
     private double speed;
     private Point.Double goal;
     private int health;
@@ -21,6 +20,7 @@ public abstract class characters {
 
     public characters() {
         graphics = new GraphicsGroup(0, 0);
+        this.health = 3;
         buildGraphics();
     }
 
@@ -28,13 +28,6 @@ public abstract class characters {
         return graphics;
     }
 
-    public int getHealth(){
-        return health;
-    }
-
-    public void setHealth(int i){
-        this.health = i;
-    }
     public void tookDamage(){
         Timer timer = new Timer();
         class NextTask extends TimerTask {
@@ -51,13 +44,10 @@ public abstract class characters {
 
     }
 
-    public void takeDamage(characters charact){
-        if(this.tookDamage = false) {
-            this.setHealth(this.getHealth() - this.damage);
-            this.tookDamage();
-            if (this.health <= 0) {
-                charact = null;
-            }
+    public void takeDamage(int d){
+        if(!this.tookDamage) {
+            this.health = this.health - d;
+            tookDamage();
 
         }
 
@@ -70,7 +60,7 @@ public abstract class characters {
     }
 
     public double getSpeed() {
-        return speed;
+        return this.speed;
     }
 
     public void setSpeed(double speed) {
@@ -88,13 +78,13 @@ public abstract class characters {
 
 
     public void moveTowardsGoal() {
-        double dx = goal.getX() - getGraphics().getX(),
-                dy = goal.getY() - getGraphics().getY(),
-                dist = Math.hypot(dx, dy);
-
+        if(!graphics.getBounds().intersects(goal.getX(),goal.getY(),1,1)){
+        double dx = this.goal.getX() - getGraphics().getX();
+        double dy = this.goal.getY() - getGraphics().getY();
+        double dist = Math.hypot(dx, dy);
         moveBy(
                 dx * getSpeed() / dist,
-                dy * getSpeed() / dist);
+                dy * getSpeed() / dist);}
     }
 
     public void moveBy(double dx, double dy) {
@@ -107,8 +97,8 @@ public abstract class characters {
     }
 
 
-    private static boolean intersects(GraphicsObject GO1, GraphicsObject Go2) {
-        return GO1.getBounds().intersects(Go2.getBounds());
+    public boolean intersects(GraphicsObject GO) {
+        return this.graphics.getBounds().intersects(GO.getBounds());
     }
 
     public int getxOffset(){
@@ -123,6 +113,14 @@ public abstract class characters {
     }
     public void setyOffset(int i){
         this.yOffset = i;
+    }
+
+    public void setHealth(int i){
+        this.health = i;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }
 

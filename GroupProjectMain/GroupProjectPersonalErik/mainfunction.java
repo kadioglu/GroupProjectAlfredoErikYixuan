@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * This is the Game Main function
@@ -46,7 +47,8 @@ public class mainfunction {
     }
 
     public mainfunction(){
-        nummounster1 = rand.nextInt(2)+1;
+        roomnumber=1;
+        nummounster1 = rand.nextInt(2)+roomnumber/2;
         canvas = new CanvasWindow("Breakout!", CANVAS_WIDTH, CANVAS_HEIGHT);
         bulletList = new ArrayList<>();
         enemyList = new ArrayList<>();
@@ -55,12 +57,7 @@ public class mainfunction {
         actiononY="null";
         firecountdown=0;
         counter1=new counter(50);
-        for(int i = 0; i<=nummounster1;i++){
-            spiky = new Spiky();
-            canvas.add(spiky.getGraphics());
-            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());
-            enemyList.add(spiky);
-        }
+        spawnMonsters();
         canvas.add(player.getShape());
         canvas.draw();
         canvas.onMouseDown(event -> {
@@ -86,12 +83,37 @@ public class mainfunction {
                  player.getcenterX(),
                  player.getcenterY()
             ));
-            s.moveTowardsGoal();}
+            s.moveTowardsGoal();
+            if (s.intersects(player.getShape())){
+                player.takeDamage(1);
+                if(player.getHealth()<1){
+                    System.exit(0);
+                }
+            }
+            }
+            if(enemyList.isEmpty()){
+                newRoom();
+            }
             if(bulletList!=null){
             for(bullet i: bulletList){
                 i.move();
                 i.collidecheck();
+                for (characters s:enemyList){
+                    if(s.intersects(i.getshape())){
+                        s.takeDamage(1);
 
+                        bulletList = bulletList.stream()
+                                .filter(a->!a.equals(i))
+                                .collect(Collectors.toList());
+
+                        if(s.getHealth()<1){
+                            canvas.remove(s.getGraphics());
+                            enemyList = enemyList.stream()
+                                    .filter(b -> !b.equals(s))
+                                    .collect(Collectors.toList());
+                        }
+                    }
+                }
 
             if(!i.getstatus()){
                 deletalist.add(i);
@@ -231,11 +253,19 @@ public class mainfunction {
         canvas.removeAll();
 
     }
-    private void clearscreen() {
+    private void newRoom() {
         roomnumber++;
-        canvas.removeAll();
+        spawnMonsters();
         if (roomnumber%5!=0){
             nummounster1=roomnumber+(4-rand.nextInt(5));
+        }
+    }
+    private  void spawnMonsters(){
+        for(int i = 0; i<=nummounster1;i++){
+            spiky = new Spiky();
+            canvas.add(spiky.getGraphics());
+            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());
+            enemyList.add(spiky);
         }
     }
 

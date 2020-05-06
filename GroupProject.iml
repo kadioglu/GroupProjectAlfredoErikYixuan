@@ -29,5 +29,26 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="127-shared" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/guava-11.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/jsr305-1.3.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/slf4j-api-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/reflections-0.9.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/slf4j-simple-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/javassist-3.26.0-GA.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/guava-11.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/jsr305-1.3.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/slf4j-api-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/reflections-0.9.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/slf4j-simple-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../127-critter-lab-lab-02/lib/javassist-3.26.0-GA.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

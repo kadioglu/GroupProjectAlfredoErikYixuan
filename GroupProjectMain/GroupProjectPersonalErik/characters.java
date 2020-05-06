@@ -73,7 +73,7 @@ public abstract class characters {
 
     public void setGoal(Point.Double goal) {
         this.goal = goal;
-        System.out.println(goal.getX());
+//        System.out.println(goal.getX());
     }
 
 

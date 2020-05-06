@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 /**
  * This is the Game Main function
- *
  */
 public class mainfunction {
 
@@ -38,12 +37,11 @@ public class mainfunction {
     private String actiononX;
     private String actiononY;
 
-
     private characters spiky;
 
     /**
-     * Main function
-     * */
+     * Main function which runs the game
+     */
     public static void main(String[] args) {
         new mainfunction();
     }
@@ -71,7 +69,7 @@ public class mainfunction {
             if(player.getBulletcount()>0){
             createbullet(event.getPosition().getX(), event.getPosition().getY());}
             player.fire();
-            System.out.println(player.getBulletcount());
+//            System.out.println(player.getBulletcount());
             //            counter1.refreshtime();
         });
         canvas.onKeyDown(event -> {
@@ -85,72 +83,18 @@ public class mainfunction {
             centralControler();
             player.move();
             player.checkbounder();
-//            for(characters s:enemyList){
-//            s.setGoal(new Point2D.Double(
-//                 player.getcenterX(),
-//                 player.getcenterY()
-//            ));
-//            s.moveTowardsGoal();
-//            if (s.intersects(player.getShape())){
-//                player.takeDamage(1);
-//                if(player.getHealth()<1){
-//                    System.exit(0);
-//                }
-//            }
-//            }
-//            if(enemyList.isEmpty()){
-//                newRoom();
-//            }
 
             enemyMoves();
             checkNewRoom();
-
             if(bulletList!=null) {
                 checkBullet();
             }
-
-//
-//            if(bulletList!=null){
-//            for(bullet i: bulletList){
-//                i.move();
-//                i.collidecheck();
-//                for (characters s:enemyList){
-//                    if(s.intersects(i.getshape())){
-//                        s.takeDamage(1);
-//                        bulletList = bulletList.stream()
-//                                .filter(a->!a.equals(i))
-//                                .collect(Collectors.toList());
-//                        canvas.remove(i.getshape());
-//
-//                        if(s.getHealth()<1){
-//                            canvas.remove(s.getGraphics());
-//                            enemyList = enemyList.stream()
-//                                    .filter(b -> !b.equals(s))
-//                                    .collect(Collectors.toList());
-//                        }
-//                    }
-//                }
-//
-//            if(!i.getstatus()){
-//                deletalist.add(i);
-//            }
-//                }
-//            if(deletalist!=null){
-//            for (bullet b: deletalist) {
-//                bulletList.remove(b);
-//                deletalist = null;
-//            }
-//            }
-//            }
-        }
-        );
-        };
-//    }
+        });
+    }
 
     /**
      * Accepts the button the player is pushing and uses that to increase
-     * or decrease the x/v velocities based on the axis and direction
-     *
+     * or decrease the x/v velocities based on the axis and direction.
      * @param key Takes the key the player is pressing
      */
     private void ControlManager(Key key){
@@ -189,7 +133,7 @@ public class mainfunction {
         if(key== Key.W){
             if(actiononY.equals("w")){
                 actiononY="null";
-                System.out.println("   W   ");
+//                System.out.println("   W   ");
             }
 //            player.writeVY(0);
 //            System.out.print("Wo");
@@ -223,6 +167,9 @@ public class mainfunction {
         }
     }
 
+    /**
+     *
+     */
     private void centralControler(){
         if(actiononY.equals("null")){
             player.writeVY(0);
@@ -233,54 +180,75 @@ public class mainfunction {
         if(actiononY.equals("w")){
             if(player.getY() >= 0){
             player.writeVY(-7);
-            System.out.print("w");
+//            System.out.print("w");
         }
             else player.writeVY(0);
         }
         if(actiononX.equals("a")){
             if(player.getX() >= 0){
                 player.writeVX(-7);
-                System.out.print("a");
+//                System.out.print("a");
             }
             else player.writeVX(0);
         }
         if(actiononY.equals("s")){
             if(player.getY() <= 800-player.getSize()){
                 player.writeVY(7);
-                System.out.print("s");
+//                System.out.print("s");
             }
             else player.writeVY(0);
         }
         if(actiononX.equals("d")){
             if(player.getX() <= 800-player.getSize()){
                 player.writeVX(7);
-                System.out.print("d");
+//                System.out.print("d");
             }
             else player.writeVX(0);
         }
     }
 
+    /**
+     * TODO: ?
+     * @param i
+     */
     private void CactiononX(String i){
         this.actiononX=i;
     }
+
+    /**
+     * TODO: ?
+     * @param i
+     */
     private void CactiononY(String i){
         this.actiononY=i;
     }
 
+    /**
+     * Creates a new bullet based on where the player and the mouse cursor's coordinates
+     * @param X The mouse cursor's X coordinate
+     * @param Y The mouse cursor's Y coordinate
+     */
     private void createbullet(double X, double Y){
         bullet bullet1=new bullet(player.getX(), player.getY(), 5, Color.BLUE, 2, 20, X,Y);
         bulletList.add(bullet1);
         canvas.add(bullet1.getshape());
     }
 
+
     private void refreshcountdown(int i){
         this.firecountdown=i;
     }
 
+    /**
+     * Removes all objects from the canvas (to switch rooms)
+     */
     private void changelocation(){
         canvas.removeAll();
-
     }
+
+    /**
+     * Generates a new room and calls spawnMonsters() to generate new enemies
+     */
     private void newRoom() {
         roomnumber++;
         spawnMonsters();
@@ -288,15 +256,24 @@ public class mainfunction {
             nummounster1=roomnumber+(4-rand.nextInt(5));
         }
     }
+
+    /**
+     * Generates the new enemies for a room,
+     */
     private  void spawnMonsters(){
         for(int i = 0; i<=nummounster1;i++){
             spiky = new Spiky();
             canvas.add(spiky.getGraphics());
-            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());
+            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());  // Make sure this occurs at some distance from the player
             enemyList.add(spiky);
         }
     }
 
+    /**
+     * Moves the enemies toward the player's coordinates;
+     * if they intersect, hurt the player;
+     * if the player's health goes below 1,end the game
+     */
     private void enemyMoves() {
         for(characters s:enemyList){
             s.setGoal(new Point2D.Double(
@@ -307,51 +284,65 @@ public class mainfunction {
             if (s.intersects(player.getShape())){
                 player.takeDamage(1);
                 if(player.getHealth()<1){
-                    System.exit(0);
+                    System.exit(0);  // Add a game over screen with a restart button?
                 }
             }
         }
     }
 
+    /**
+     * Checks that there are no more enemies, then calls newRoom()
+     */
     private void checkNewRoom() {
         if(enemyList.isEmpty()){
             newRoom();
         }
     }
 
+    /**
+     * TODO: ?
+     */
+//          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+//          ┃ Error is here: trying to delete the same bullet multiple times ┃
+//          ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┹────────────────┐
+//          │ Either: make enemies unable to stack                                            │
+//          │ Or: make sure when they intersect only the first spiky removes a bullet         │
+//          │ Or: make the bullet call the remove function; thus it deletes itself and target │
+//          └─────────────────────────────────────────────────────────────────────────────────┘
     private void checkBullet() {
-            for(bullet i: bulletList) {
-                i.move();
-                i.collidecheck();
-                for (characters s:enemyList) {
-                    if(s.intersects(i.getshape())) {
-                        s.takeDamage(1);
-                        bulletList = bulletList.stream()
-                                .filter(a->!a.equals(i))
-                                .collect(Collectors.toList());
-                        canvas.remove(i.getshape());
+        for(bullet i: bulletList) {
+            i.move();
+            i.collidecheck();
+            for (characters s:enemyList) {
+                if(s.intersects(i.getshape())) {
+                    s.takeDamage(1);
+                    bulletList = bulletList.stream()
+                            .filter(a->!a.equals(i))
+                            .collect(Collectors.toList());
+                    canvas.remove(i.getshape());
 
-                        if(s.getHealth()<1) {
-                            canvas.remove(s.getGraphics());
-                            enemyList = enemyList.stream()
-                                    .filter(b -> !b.equals(s))
-                                    .collect(Collectors.toList());
-                        }
+                    if(s.getHealth()<1) {
+                        canvas.remove(s.getGraphics());
+                        enemyList = enemyList.stream()
+                                .filter(b -> !b.equals(s))
+                                .collect(Collectors.toList());
                     }
                 }
+            }
 
-                if(!i.getstatus()) {
-                    deletalist.add(i);
-                }
+            if(!i.getstatus()) {
+                deletalist.add(i);
             }
-            if(deletalist!=null){
-                for (bullet b: deletalist) {
-                    bulletList.remove(b);
-                    deletalist = null;
-                }
+        }
+
+        if(deletalist!=null){
+            for (bullet b: deletalist) {
+                bulletList.remove(b);
+                deletalist = null;
             }
+        }
     }
-
+    // Might need to refactor this more
 
 
 }

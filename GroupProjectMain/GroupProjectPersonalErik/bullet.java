@@ -21,7 +21,9 @@ public class bullet {
     private boolean status;
 
 
-    /**ball constructor*/
+    /**
+     * Creates a new bullet with an intended direction, speed, and position
+     */
     public bullet(double x, double y, double radius, Color color, int damage, double speed, double endX, double endY) {
         shape = new Ellipse(x, y, radius * 2, radius * 2);
         shape.setFillColor(color);
@@ -32,66 +34,82 @@ public class bullet {
         double angleRadians = atan2(endY-y, endX-x);
         this.XVelosity = cos(angleRadians) * speed;
         this.YVelosity = sin(angleRadians) * speed;
-//        this.XVelosity=speed*Math.sin(Math.atan((endY-y)/(endX-x)));
-//        this.YVelosity=speed*Math.cos(Math.atan((endY-y)/(endX-x)));
         this.status=true;
     }
-    /**this function manage the movement of the ball based on velosity*/
+    /**
+     * Manages the movement of the ball based on x & y velocities
+     */
     public void move(){
         collidecheck();
         shape.moveBy(XVelosity,YVelosity);
     }
-    /**this function bounce the ball back when it hit the wall, and it reduce the life of the player when hit the bottom*/
+    /**
+     * Sets the bullet's status to false (deletes it) when it moves a little
+     * beyond all the walls of the canvas
+     */
+    // Should convert the hard values to variables 100 units beyond the canvas height & width
     public void collidecheck() {
         if (this.getX() == -100) {
             this.status=false;
         }
-
         if (this.getX() == 900) {
             this.status=false;
         }
-
         if (this.getY() == -100) {
             this.status=false;
         }
-
         if (this.getY() == 900) {
             this.status=false;
         }
-
     }
 
+    /**
+     * Gets the boolean status of the bullet's coordinates (whether or not it is still on the canvas)
+     */
     public boolean getstatus(){
         return status;
     }
+    /**
+     * Gets the bullet shape
+     */
     public Ellipse getshape(){
         return shape;
     }
-    /**this function get coordinate x*/
+    /**
+     * Gets the x coordinate of the bullet
+     */
     public double getX(){
         return shape.getX();
     }
-    /**this function get coordinate y*/
+    /**
+     * Gets the y coordinate of the bullet
+     */
     public double getY(){
         return shape.getY();
     }
-    /**this function change velosity x*/
-    public void changeVX(){
-        this.XVelosity=0-this.XVelosity;
-    }
-    /**this function change velosity y*/
-    public void changeVY(){
-        this.YVelosity=0-this.YVelosity;
-    }
-    /**this function rewrite velosity x*/
-    public void writeVX(double i){
-        this.XVelosity=i;
-    }
-    /**this function rewrite velosity y*/
-    public void writeY(double i){
-        this.YVelosity=i;
-    }
-
+//    /**
+//     * Multiplies the x velocity by -1
+//     */
+//    public void changeVX(){
+//        this.XVelosity=0-this.XVelosity;
+//    }
+//    /**
+//     * Multiplies the y velocity by -1
+//     */
+//    public void changeVY(){
+//        this.YVelosity=0-this.YVelosity;
+//    }
+//    /**this function rewrite velosity x*/
+//    public void writeVX(double i){
+//        this.XVelosity=i;
+//    }
+//    /**this function rewrite velosity y*/
+//    public void writeY(double i){
+//        this.YVelosity=i;
+//    }
+    /**
+     * Sets the boolean status of the bullet (whether or not it is still on the canvas)
+     */
     public void setStatus(boolean status) {
         this.status = status;
     }

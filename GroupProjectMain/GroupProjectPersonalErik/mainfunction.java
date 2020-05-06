@@ -272,7 +272,7 @@ public class mainfunction {
     /**
      * Moves the enemies toward the player's coordinates;
      * if they intersect, hurt the player;
-     * if the player's health goes below 1,end the game
+     * if the player's health goes below 1, end the game
      */
     private void enemyMoves() {
         for(characters s:enemyList){
@@ -287,6 +287,7 @@ public class mainfunction {
                     System.exit(0);  // Add a game over screen with a restart button?
                 }
             }
+        break;
         }
     }
 
@@ -302,13 +303,6 @@ public class mainfunction {
     /**
      * TODO: ?
      */
-//          ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-//          ┃ Error is here: trying to delete the same bullet multiple times ┃
-//          ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┹────────────────┐
-//          │ Either: make enemies unable to stack                                            │
-//          │ Or: make sure when they intersect only the first spiky removes a bullet         │
-//          │ Or: make the bullet call the remove function; thus it deletes itself and target │
-//          └─────────────────────────────────────────────────────────────────────────────────┘
     private void checkBullet() {
         for(bullet i: bulletList) {
             i.move();

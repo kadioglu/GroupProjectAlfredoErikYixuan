@@ -287,7 +287,6 @@ public class mainfunction {
                     System.exit(0);  // Add a game over screen with a restart button?
                 }
             }
-        break;
         }
     }
 
@@ -321,6 +320,7 @@ public class mainfunction {
                                 .filter(b -> !b.equals(s))
                                 .collect(Collectors.toList());
                     }
+                break;
                 }
             }
 

@@ -7,13 +7,18 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The class for melee enemies which chase the player and deal damage on contact
+ */
 public class Spiky extends characters{
 
     private static final Color
             strokeColor = new Color(244, 0, 0),
             fillColor = new Color(244, 0, 0);
 
-
+    /**
+     * Constructs the visualization of the spiky enemy
+     */
     @Override
     protected void buildGraphics() {
         Random rand = new Random();
@@ -34,6 +39,11 @@ public class Spiky extends characters{
         getGraphics().add(SpikyShape);
 
     }
+
+    /**
+     * Returns a list of positions on the enemy where the game checks for the player
+     * @return The list of enemy contact points
+     */
     public java.util.List<Point> getStarPoints() {
         return List.of(
                 new Point(58.78/3,   80.9/3),

@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * This is the Game Main function
+ * The main game class to run the game and shoot rapidly approaching enemies.
  */
 public class mainfunction {
 
@@ -19,7 +19,6 @@ public class mainfunction {
     private static final int CANVAS_HEIGHT = 800;
 
     private final CanvasWindow canvas;
-//    private List<block> blockList;
     private List<characters> enemyList;
     private List<bullet> bulletList;
     private List<bullet> deletalist;
@@ -40,7 +39,7 @@ public class mainfunction {
     private characters spiky;
 
     /**
-     * Main function which runs the game
+     * The main function which runs the game
      */
     public static void main(String[] args) {
         new mainfunction();
@@ -100,64 +99,46 @@ public class mainfunction {
     private void ControlManager(Key key){
         if(key== Key.W){
             CactiononY("w");
-//            player.writeVY(-7);
-//            System.out.print("w");
         }
         if(key== Key.A){
             CactiononX("a");
-//            player.writeVX(-7);
-//            System.out.print("a");
         }
         if(key== Key.S){
             CactiononY("s");
-//            player.writeVY(7);
-//            System.out.print("s");
         }
         if(key== Key.D){
             CactiononX("d");
-//            player.writeVX(7);
-//            System.out.print("d");
         }
         if(key==Key.R){
             otheraction="r";
             }
     }
 
-
-    // I think that's what this does; I am unsure
     /**
-     *
+     * Interprets another keypress the player is pushing so that multiple actions
+     * can occur simultaneously, like diagonal travel or moving while reloading
      * @param key Takes another key the player may be pressing
      */
     private void ControlManager2(Key key){
         if(key== Key.W){
             if(actiononY.equals("w")){
                 actiononY="null";
-//                System.out.println("   W   ");
             }
-//            player.writeVY(0);
-//            System.out.print("Wo");
         }
         if(key== Key.A){
             if(actiononX.equals("a")){
                 actiononX="null";
             }
-//            player.writeVX(0);
-//            System.out.print("Ao");
         }
         if(key== Key.S){
             if(actiononY.equals("s")){
                 actiononY="null";
             }
-//            player.writeVY(0);
-//            System.out.print("So");
         }
         if(key== Key.D){
             if(actiononX.equals("d")){
                 actiononX="null";
             }
-//            player.writeVX(0);
-//            System.out.print("Do");
         }
         if(key==Key.R){
             if(otheraction.equals("r")){
@@ -168,7 +149,8 @@ public class mainfunction {
     }
 
     /**
-     *
+     * Interprets all the key presses and executes them;
+     * this is responsible for actually moving the player character.
      */
     private void centralControler(){
         if(actiononY.equals("null")){
@@ -180,44 +162,40 @@ public class mainfunction {
         if(actiononY.equals("w")){
             if(player.getY() >= 0){
             player.writeVY(-7);
-//            System.out.print("w");
         }
             else player.writeVY(0);
         }
         if(actiononX.equals("a")){
             if(player.getX() >= 0){
                 player.writeVX(-7);
-//                System.out.print("a");
             }
             else player.writeVX(0);
         }
         if(actiononY.equals("s")){
             if(player.getY() <= 800-player.getSize()){
                 player.writeVY(7);
-//                System.out.print("s");
             }
             else player.writeVY(0);
         }
         if(actiononX.equals("d")){
             if(player.getX() <= 800-player.getSize()){
                 player.writeVX(7);
-//                System.out.print("d");
             }
             else player.writeVX(0);
         }
     }
 
     /**
-     * TODO: ?
-     * @param i
+     * Interprets which buttons are pressed and set the variable actionX to it.
+     * @param i The string for the key being pressed
      */
     private void CactiononX(String i){
         this.actiononX=i;
     }
 
     /**
-     * TODO: ?
-     * @param i
+     * Interprets which buttons are pressed and set the variable actionY to it.
+     * @param i The string for the key being pressed
      */
     private void CactiononY(String i){
         this.actiononY=i;
@@ -234,7 +212,10 @@ public class mainfunction {
         canvas.add(bullet1.getshape());
     }
 
-
+    /**
+     * ? Terminate countdown
+     * @param i
+     */
     private void refreshcountdown(int i){
         this.firecountdown=i;
     }
@@ -258,13 +239,13 @@ public class mainfunction {
     }
 
     /**
-     * Generates the new enemies for a room,
+     * Generates the new enemies for a room, and randomly distributes them in it
      */
     private  void spawnMonsters(){
         for(int i = 0; i<=nummounster1;i++){
             spiky = new Spiky();
             canvas.add(spiky.getGraphics());
-            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());  // Make sure this occurs at some distance from the player
+            spiky.moveBy(spiky.getxOffset(),spiky.getyOffset());
             enemyList.add(spiky);
         }
     }
@@ -300,7 +281,10 @@ public class mainfunction {
     }
 
     /**
-     * TODO: ?
+     * Moves each bullet and checks if it hits the boundaries of the screen;
+     * then, for each enemy, sees if it intersects. If it does, remove the bullet
+     * and reduce the enemy's health by 1——if an enemy's health is below 1,
+     * remove it from the canvas and the enemy list.
      */
     private void checkBullet() {
         for(bullet i: bulletList) {
@@ -336,7 +320,4 @@ public class mainfunction {
             }
         }
     }
-    // Might need to refactor this more
-
-
 }

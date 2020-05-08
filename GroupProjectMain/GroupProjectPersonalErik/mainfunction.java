@@ -27,9 +27,6 @@ public class mainfunction {
     private int roomnumber;
     private int nummounster1;
     private int Nummounster2;
-    private counter counter1;
-
-    private int firecountdown=0;
 
     private String otheraction;
 
@@ -59,8 +56,6 @@ public class mainfunction {
         player= new player(0,400,20,20);
         actiononX="null";
         actiononY="null";
-        firecountdown=0;
-        counter1=new counter(50);
         spawnMonsters();
         canvas.add(player.getShape());
         canvas.draw();
@@ -68,8 +63,6 @@ public class mainfunction {
             if(player.getBulletcount()>0){
             createbullet(event.getPosition().getX(), event.getPosition().getY());}
             player.fire();
-//            System.out.println(player.getBulletcount());
-            //            counter1.refreshtime();
         });
         canvas.onKeyDown(event -> {
             ControlManager(event.getKey());
@@ -78,7 +71,6 @@ public class mainfunction {
             ControlManager2(event.getKey());
         });
         canvas.animate(() -> {
-            counter1.countdown();
             centralControler();
             player.move();
             player.checkbounder();
@@ -207,17 +199,9 @@ public class mainfunction {
      * @param Y The mouse cursor's Y coordinate
      */
     private void createbullet(double X, double Y){
-        bullet bullet1=new bullet(player.getX(), player.getY(), 5, Color.BLUE, 2, 20, X,Y);
+        bullet bullet1=new bullet(player.getcenterX(), player.getcenterY(), 5, Color.BLUE, 2, 20, X,Y);
         bulletList.add(bullet1);
         canvas.add(bullet1.getshape());
-    }
-
-    /**
-     * ? Terminate countdown
-     * @param i
-     */
-    private void refreshcountdown(int i){
-        this.firecountdown=i;
     }
 
     /**

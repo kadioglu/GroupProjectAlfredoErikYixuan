@@ -23,6 +23,14 @@ public class bullet {
 
     /**
      * Creates a new bullet with an intended direction, speed, and position and sets up a number of parameters
+     * @param x The x position of the center of the player
+     * @param y The y position of the center of the player
+     * @param radius The radius of the bullet
+     * @param color The color of the bullet
+     * @param damage The damage of the bullet
+     * @param speed The speed modifier of the bullet
+     * @param endX The goal x position of the bullet (mouse position x)
+     * @param endY the goal y position of the bullet (mouse position y)
      */
     public bullet(double x, double y, double radius, Color color, int damage, double speed, double endX, double endY) {
         shape = new Ellipse(x, y, radius * 2, radius * 2);

@@ -29,6 +29,7 @@ public class Spiky extends characters{
         List<Point> starPoints = getStarPoints();
         Path poly = new Path(starPoints);
         poly.setFillColor(Color.RED);
+        poly.setStrokeColor(Color.RED);
         SpikyShape.add(poly);
         comp127graphics.Ellipse body = new Ellipse(-20,-20, 40, 40);
         body.setStrokeColor(strokeColor);
